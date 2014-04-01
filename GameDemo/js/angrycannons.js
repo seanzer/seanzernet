@@ -269,38 +269,40 @@ GameScene = pc.Scene.extend('GameScene',
             pc.device.input.bindState(this, 'firing', 'SPACE');
 
             // Handle XBOX Controller
-            var XboxKeys = WinJS.Utilities.Key;
-            if (+XboxKeys.gamepadA === XboxKeys.gamepadA) {
-                pc.InputType.addInput(XboxKeys.gamepadA, 'GAMEPAD_A');
-                pc.InputType.addInput(XboxKeys.gamepadB, 'GAMEPAD_B');
-                pc.InputType.addInput(XboxKeys.gamepadX, 'GAMEPAD_X');
-                pc.InputType.addInput(XboxKeys.gamepadY, 'GAMEPAD_Y');
-                pc.InputType.addInput(XboxKeys.gamepadRightShoulder, 'GAMEPAD_RS');
-                pc.InputType.addInput(XboxKeys.gamepadLeftShoulder, 'GAMEPAD_LS');
-                pc.InputType.addInput(XboxKeys.gamepadLeftTrigger, 'GAMEPAD_LT');
-                pc.InputType.addInput(XboxKeys.gamepadRightTrigger, 'GAMEPAD_RT');
-                pc.InputType.addInput(XboxKeys.gamepadDPadUp, 'GAMEPAD_DPAD_UP');
-                pc.InputType.addInput(XboxKeys.gamepadDPadDown, 'GAMEPAD_DPAD_DOWN');
-                pc.InputType.addInput(XboxKeys.gamepadDPadLeft, 'GAMEPAD_DPAD_LEFT');
-                pc.InputType.addInput(XboxKeys.gamepadDPadRight, 'GAMEPAD_DPAD_RIGHT');
-                pc.InputType.addInput(XboxKeys.gamepadMenu, 'GAMEPAD_MENU');
-                pc.InputType.addInput(XboxKeys.gamepadView, 'GAMEPAD_VIEW');
-                pc.InputType.addInput(XboxKeys.gamepadLeftThumbstick, 'GAMEPAD_LTHUMB');
-                pc.InputType.addInput(XboxKeys.gamepadRightThumbstick, 'GAMEPAD_RTHUMB');
-                pc.InputType.addInput(XboxKeys.gamepadLeftThumbstickUp, 'GAMEPAD_LTHUMB_UP');
-                pc.InputType.addInput(XboxKeys.gamepadLeftThumbstickDown, 'GAMEPAD_LTHUMB_DOWN');
-                pc.InputType.addInput(XboxKeys.gamepadLeftThumbstickRight, 'GAMEPAD_LTHUMB_RIGHT');
-                pc.InputType.addInput(XboxKeys.gamepadLeftThumbstickLeft, 'GAMEPAD_LTHUMB_LEFT');
-                pc.InputType.addInput(XboxKeys.gamepadRightThumbstickUp, 'GAMEPAD_RTHUMB_UP');
-                pc.InputType.addInput(XboxKeys.gamepadRightThumbstickDown, 'GAMEPAD_RTHUMB_DOWN');
-                pc.InputType.addInput(XboxKeys.gamepadRightThumbstickRight, 'GAMEPAD_RTHUMB_RIGHT');
-                pc.InputType.addInput(XboxKeys.gamepadRightThumbstickLeft, 'GAMEPAD_RTHUMB_LEFT');
+            if (window.WinJS) {
+                var XboxKeys = WinJS.Utilities.Key;
+                if (+XboxKeys.gamepadA === XboxKeys.gamepadA) {
+                    pc.InputType.addInput(XboxKeys.gamepadA, 'GAMEPAD_A');
+                    pc.InputType.addInput(XboxKeys.gamepadB, 'GAMEPAD_B');
+                    pc.InputType.addInput(XboxKeys.gamepadX, 'GAMEPAD_X');
+                    pc.InputType.addInput(XboxKeys.gamepadY, 'GAMEPAD_Y');
+                    pc.InputType.addInput(XboxKeys.gamepadRightShoulder, 'GAMEPAD_RS');
+                    pc.InputType.addInput(XboxKeys.gamepadLeftShoulder, 'GAMEPAD_LS');
+                    pc.InputType.addInput(XboxKeys.gamepadLeftTrigger, 'GAMEPAD_LT');
+                    pc.InputType.addInput(XboxKeys.gamepadRightTrigger, 'GAMEPAD_RT');
+                    pc.InputType.addInput(XboxKeys.gamepadDPadUp, 'GAMEPAD_DPAD_UP');
+                    pc.InputType.addInput(XboxKeys.gamepadDPadDown, 'GAMEPAD_DPAD_DOWN');
+                    pc.InputType.addInput(XboxKeys.gamepadDPadLeft, 'GAMEPAD_DPAD_LEFT');
+                    pc.InputType.addInput(XboxKeys.gamepadDPadRight, 'GAMEPAD_DPAD_RIGHT');
+                    pc.InputType.addInput(XboxKeys.gamepadMenu, 'GAMEPAD_MENU');
+                    pc.InputType.addInput(XboxKeys.gamepadView, 'GAMEPAD_VIEW');
+                    pc.InputType.addInput(XboxKeys.gamepadLeftThumbstick, 'GAMEPAD_LTHUMB');
+                    pc.InputType.addInput(XboxKeys.gamepadRightThumbstick, 'GAMEPAD_RTHUMB');
+                    pc.InputType.addInput(XboxKeys.gamepadLeftThumbstickUp, 'GAMEPAD_LTHUMB_UP');
+                    pc.InputType.addInput(XboxKeys.gamepadLeftThumbstickDown, 'GAMEPAD_LTHUMB_DOWN');
+                    pc.InputType.addInput(XboxKeys.gamepadLeftThumbstickRight, 'GAMEPAD_LTHUMB_RIGHT');
+                    pc.InputType.addInput(XboxKeys.gamepadLeftThumbstickLeft, 'GAMEPAD_LTHUMB_LEFT');
+                    pc.InputType.addInput(XboxKeys.gamepadRightThumbstickUp, 'GAMEPAD_RTHUMB_UP');
+                    pc.InputType.addInput(XboxKeys.gamepadRightThumbstickDown, 'GAMEPAD_RTHUMB_DOWN');
+                    pc.InputType.addInput(XboxKeys.gamepadRightThumbstickRight, 'GAMEPAD_RTHUMB_RIGHT');
+                    pc.InputType.addInput(XboxKeys.gamepadRightThumbstickLeft, 'GAMEPAD_RTHUMB_LEFT');
 
-                pc.device.input.bindState(this, 'aim upwards', 'GAMEPAD_LTHUMB_UP'); //XBOX
-                pc.device.input.bindState(this, 'aim downwards', 'GAMEPAD_LTHUMB_DOWN'); //XBOX
-                pc.device.input.bindAction(this, 'make crate', 'GAMEPAD_X'); //XBOX
-                pc.device.input.bindState(this, 'firing', 'GAMEPAD_A'); //XBOX
-                pc.device.input.bindState(this, 'firing', 'GAMEPAD_RT'); //XBOX
+                    pc.device.input.bindState(this, 'aim upwards', 'GAMEPAD_LTHUMB_UP'); //XBOX
+                    pc.device.input.bindState(this, 'aim downwards', 'GAMEPAD_LTHUMB_DOWN'); //XBOX
+                    pc.device.input.bindAction(this, 'make crate', 'GAMEPAD_X'); //XBOX
+                    pc.device.input.bindState(this, 'firing', 'GAMEPAD_A'); //XBOX
+                    pc.device.input.bindState(this, 'firing', 'GAMEPAD_RT'); //XBOX
+                }
             }
         },
 
