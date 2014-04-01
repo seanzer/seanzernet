@@ -514,26 +514,26 @@ TheGame = pc.Game.extend('TheGame',
 
             // load resources
             pc.device.loader.setDisableCache();
-            pc.device.loader.add(new pc.Image('explosions', 'images/explosions.png'));
-            pc.device.loader.add(new pc.Image('cannon-ball', 'images/cannon_ball.png'));
-            pc.device.loader.add(new pc.Image('cannon-base', 'images/cannon_base.png'));
-            pc.device.loader.add(new pc.Image('cannon-barrel', 'images/cannon_barrel.png'));
-            pc.device.loader.add(new pc.Image('smoke', 'images/smoke1.png'));
-            pc.device.loader.add(new pc.Image('crate1', 'images/crate2.png'));
-            pc.device.loader.add(new pc.Image('crate2', 'images/crate3.png'));
-            pc.device.loader.add(new pc.Image('crate-damage', 'images/crate_damage.png'));
-            pc.device.loader.add(new pc.Image('crate-debris', 'images/crate_debris.png'));
-            pc.device.loader.add(new pc.Image('backdrop-left', 'images/backdrop_left.png'));
-            pc.device.loader.add(new pc.Image('backdrop-right', 'images/backdrop_right.png'));
-            pc.device.loader.add(new pc.Image('backdrop-repeat', 'images/backdrop_repeat.png'));
-            pc.device.loader.add(new pc.Image('grass-far', 'images/grass_far.png'));
-            pc.device.loader.add(new pc.Image('grass-foreground', 'images/grass_foreground.png'));
-            pc.device.loader.add(new pc.Image('grass-near', 'images/grass_near.png'));
+            pc.device.loader.add(new pc.Image('explosions', '../../images/explosions.png'));
+            pc.device.loader.add(new pc.Image('cannon-ball', '../../images/cannon_ball.png'));
+            pc.device.loader.add(new pc.Image('cannon-base', '../../images/cannon_base.png'));
+            pc.device.loader.add(new pc.Image('cannon-barrel', '../../images/cannon_barrel.png'));
+            pc.device.loader.add(new pc.Image('smoke', '../../images/smoke1.png'));
+            pc.device.loader.add(new pc.Image('crate1', '../../images/crate2.png'));
+            pc.device.loader.add(new pc.Image('crate2', '../../images/crate3.png'));
+            pc.device.loader.add(new pc.Image('crate-damage', '../../images/crate_damage.png'));
+            pc.device.loader.add(new pc.Image('crate-debris', '../../images/crate_debris.png'));
+            pc.device.loader.add(new pc.Image('backdrop-left', '../../images/backdrop_left.png'));
+            pc.device.loader.add(new pc.Image('backdrop-right', '../../images/backdrop_right.png'));
+            pc.device.loader.add(new pc.Image('backdrop-repeat', '../../images/backdrop_repeat.png'));
+            pc.device.loader.add(new pc.Image('grass-far', '../../images/grass_far.png'));
+            pc.device.loader.add(new pc.Image('grass-foreground', '../../images/grass_foreground.png'));
+            pc.device.loader.add(new pc.Image('grass-near', '../../images/grass_near.png'));
 
             if (pc.device.soundEnabled)
             {
-                pc.device.loader.add(new pc.Sound('smash', 'sounds/woodsmash', ['ogg', 'mp3'], 10));
-                pc.device.loader.add(new pc.Sound('explosion', 'sounds/explosion', ['ogg', 'mp3'], 12));
+                pc.device.loader.add(new pc.Sound('smash', '../../sounds/woodsmash', ['ogg', 'mp3'], 10));
+                pc.device.loader.add(new pc.Sound('explosion', '../../sounds/explosion', ['ogg', 'mp3'], 12));
             }
 
             pc.device.loader.start(this.onLoading.bind(this), this.onLoaded.bind(this));
