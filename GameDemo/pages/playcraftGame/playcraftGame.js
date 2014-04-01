@@ -4,7 +4,7 @@
     "use strict";
 
     function loadGame() {
-        pc.start('pcGameCanvas', 'TheGame', 'js/', ['angrycannons.js'], '../../playcraftjs/lib/');
+        pc.start('pcGameCanvas', 'TheGame', '../../js/', ['angrycannons.js'], '../../playcraftjs/lib/');
     }
 
     if (window.WinJS) {
