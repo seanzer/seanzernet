@@ -47,7 +47,7 @@ GamePhysics = pc.systems.Physics.extend('GamePhysics',
 
         onCollision:function (objAType, objBType, entityA, entityB, force)
         {
-            if (entityB.hasTag('CRATE') && entityA.hasTag('BULLET') && force > 3.5)
+            if (entityB.hasTag('CRATE') && entityA.hasTag('BULLET') && force > 1.5)
             {
                 // change the crate (entityB in this case)
                 if (!entityB.hasComponentOfType('expiry'))
@@ -396,8 +396,8 @@ GameScene = pc.Scene.extend('GameScene',
 
             e.addComponent(pc.components.Physics.create(
                 {
-                    maxSpeed:{x:80, y:80},
-                    force:140,
+                    maxSpeed:{x:180, y:180},
+                    force:250,
                     bounce:0.1,
                     collisionCategory:CollisionType.FRIENDLY,
                     collisionMask:CollisionType.FRIENDLY|CollisionType.ENEMY

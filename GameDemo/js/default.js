@@ -18,7 +18,7 @@
             }
             var p = WinJS.UI.processAll().
                 then(function () {
-                    WinJS.Navigation.navigate("/pages/playcraftGame/playcraftGame.html");
+                    WinJS.Navigation.navigate("/pages/home/home.html");
                 });
             args.setPromise(p);
             p.done();
