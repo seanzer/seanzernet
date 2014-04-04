@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        html {
+            touch-action: none;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        (function () {
+            "use strict";
+
+            var canvas = document.createElement("canvas");
+            document.body.appendChild(canvas);
+            canvas.style.backgroundColor = "Lightgrey";
+            canvas.height = window.innerHeight - 60;
+            canvas.width = window.innerWidth - 60;
+            window.addEventListener("resize", function () {
+                canvas.height = window.innerHeight - 60;
+                canvas.width = window.innerWidth - 60;
+            });
+
+            //get canvas context
+            var context = canvas.getContext('2d');
+            context.lineWidth = 2;
+            function drawMyName() {
+                context.font = "20px Georgia";
+                context.fillText("Welcome to Seanzer.Net... by SeanLee", 10, 100);
+            }
+            function drawLine(from, to, strokeStyle) {
+                context.beginPath();
+                context.moveTo(from.x, from.y);
+                context.lineTo(to.x, to.y);
+                context.strokeStyle = strokeStyle || "rgb(0,0,0)";
+                context.stroke();
+            }
+            function drawBall(x, y, radius, color) {
+                context.beginPath();
+                context.arc(x, y, radius, 0, 2 * Math.PI, false);
+                context.fillStyle = color || "rgb(0,0,0)";
+                context.fill();
+            }
+
+            var balls = [];
+            balls.push({
+                x: 20 + 20 * Math.random(),
+                y: 23,
+                radius: 20,
+                color: "red",
+                vx: .08,
+                vy: .1
+            });
+            balls.push({
+                x: 100 * Math.random() + 100,
+                y: 23,
+                radius: 20,
+                color: "green",
+                vx: 0,
+                vy: .5
+            });
+
+            var last = performance.now();
+            function render() {
+                update();
+
+                //clear
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                //draw
+                for (var i = 0; i < balls.length; i++) {
+                    var ball = balls[i];
+                    drawBall(ball.x, ball.y, ball.radius, ball.color);
+                }
+                drawMyName();
+
+                requestAnimationFrame(render);
+            }
+            render();
+
+            function update() {
+                var canvasHeight = canvas.height;
+                var canvasWidth = canvas.width;
+                var elasticity = .6;
+
+                //update
+                var now = performance.now();
+                var dist = Math.min(now - last, 16);
+                last = now;
+                for (var i = 0; i < balls.length; i++) {
+                    var ball = balls[i];
+                    ball.vy += 1 / 1000 * dist;
+                    ball.vx = ball.vx - (1 / 1000 * ball.vx * dist);
+
+                    if (ball.y >= canvasHeight - ball.radius) {
+                        ball.vy = -ball.vy * (1 - elasticity);
+                    }
+                    if (ball.x >= canvasWidth - ball.radius || ball.x <= ball.radius) {
+                        ball.vx = -ball.vx * (1 - elasticity);
+                    }
+                    ball.y = Math.min(ball.y + dist * ball.vy, canvasHeight - ball.radius);
+                    ball.x = ball.x + dist * ball.vx;
+                }
+            }
+
+            window.addEventListener("pointermove", function (ev) {
+                var r = Math.random() * 255 | 0,
+                    g = Math.random() * 255 | 0,
+                    b = Math.random() * 255 | 0;
+                balls.push({
+                    x: ev.clientX,
+                    y: ev.clientY,
+                    radius: 20,
+                    color: "rgb(" + r + "," + g + ", " + b + ")",
+                    vx: Math.random() - .5,
+                    vy: 0
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
