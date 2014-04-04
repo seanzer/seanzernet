@@ -1,10 +1,8 @@
-﻿
-﻿<!DOCTYPE html>
-
+﻿﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Seanzer.net - IT'S A PaRTY!!</title>
     <style>
         html {
             touch-action: none;
@@ -29,9 +27,23 @@
             //get canvas context
             var context = canvas.getContext('2d');
             context.lineWidth = 2;
+            function drawText(font, text, x, y) {
+                context.font = font;
+                context.fillText(text, x, y);
+            }
             function drawMyName() {
-                context.font = "20px Georgia";
-                context.fillText("Welcome to Seanzer.Net... by SeanLee", 10, 100);
+                var font = "20px Georgia"
+                    , text = "Welcome to Seanzer.Net... by SeanLee"
+                    , x = 10
+                    , y = 100;
+                drawText(font, text, x, y);
+            }
+            function drawBallCount() {
+                var font = "12px Georgia"
+                    , text = "Total balls: " + balls.length
+                    , x = 16
+                    , y = 120;
+                drawText(font, text, x, y);
             }
             function drawLine(from, to, strokeStyle) {
                 context.beginPath();
@@ -78,6 +90,7 @@
                     drawBall(ball.x, ball.y, ball.radius, ball.color);
                 }
                 drawMyName();
+                drawBallCount();
 
                 requestAnimationFrame(render);
             }
@@ -90,7 +103,10 @@
 
                 //update
                 var now = performance.now();
-                var dist = Math.min(now - last, 16);
+                var dist = Math.min(now - last, 32);
+                if (now - last > 32) {
+                    balls = [];
+                }
                 last = now;
                 for (var i = 0; i < balls.length; i++) {
                     var ball = balls[i];
@@ -108,18 +124,30 @@
                 }
             }
 
+            var lastPointer = {
+                x: 0,
+                y: 0
+            };
             window.addEventListener("pointermove", function (ev) {
-                var r = Math.random() * 255 | 0,
-                    g = Math.random() * 255 | 0,
-                    b = Math.random() * 255 | 0;
-                balls.push({
-                    x: ev.clientX,
-                    y: ev.clientY,
-                    radius: 20,
-                    color: "rgb(" + r + "," + g + ", " + b + ")",
-                    vx: Math.random() - .5,
-                    vy: 0
-                });
+                var x = ev.clientX
+                    , y = ev.clientY;
+                if (Math.abs(lastPointer.x - x) > 10
+                    && Math.abs(lastPointer.y - y) > 10) {
+                    lastPointer.x = x;
+                    lastPointer.y = y;
+
+                    var r = Math.random() * 256 | 0
+                        , g = Math.random() * 256 | 0
+                        , b = Math.random() * 256 | 0;
+                    balls.push({
+                        x: lastPointer.x,
+                        y: lastPointer.y,
+                        radius: 20,
+                        color: "rgb(" + r + "," + g + ", " + b + ")",
+                        vx: Math.random() - .5,
+                        vy: -Math.random()
+                    });
+                }
             });
         })();
     </script>
