@@ -103,9 +103,10 @@
 
                 //update
                 var now = performance.now();
-                var dist = Math.min(now - last, 32);
-                if (now - last > 32) {
+                var dist = now - last;
+                if (now - last > 50) {
                     balls = [];
+                    dist = 50;
                 }
                 last = now;
                 for (var i = 0; i < balls.length; i++) {
@@ -131,8 +132,7 @@
             window.addEventListener("pointermove", function (ev) {
                 var x = ev.clientX
                     , y = ev.clientY;
-                if (Math.abs(lastPointer.x - x) > 10
-                    && Math.abs(lastPointer.y - y) > 10) {
+                if (Math.sqrt(Math.pow(lastPointer.x - x, 2) + Math.pow(lastPointer.y - y, 2)) > 10) {
                     lastPointer.x = x;
                     lastPointer.y = y;
 
@@ -145,7 +145,7 @@
                         radius: 20,
                         color: "rgb(" + r + "," + g + ", " + b + ")",
                         vx: Math.random() - .5,
-                        vy: -Math.random()
+                        vy: -2 * Math.random() + 1
                     });
                 }
             });
