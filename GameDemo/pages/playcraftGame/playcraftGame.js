@@ -3,8 +3,30 @@
 (function () {
     "use strict";
 
-    function loadGame() {
-        pc.start('pcGameCanvas', 'TheGame', '../../js/', ['angrycannons.js'], '../../playcraftjs/lib/');
+    function loadGame(gameName) {
+        var filesToLoad;
+        switch (gameName) {
+            case 'Angry Cannons':
+                filesToLoad = ['angrycannons.js'];
+                break;
+            case 'Scrollia':
+                filesToLoad = [
+                    'scrollia/components/brain.js',
+                    'scrollia/components/health.js',
+                    'scrollia/components/healthbar.js',
+                    'scrollia/systems/brain.js',
+                    'scrollia/systems/healthbar.js',
+                    'scrollia/systems/health.js',
+                    'scrollia/systems/gamephysics.js',
+                    'scrollia/systems/playercontrol.js',
+                    'scrollia/soundmanager.js',
+                    'scrollia/entityfactory.js',
+                    'scrollia/gamescene.js',
+                    'scrollia/game.js'
+                ];
+                break;
+        }
+        pc.start('pcGameCanvas', 'TheGame', '../../js/', filesToLoad, '../../playcraftjs/lib/');
     }
 
     if (window.WinJS) {
@@ -13,7 +35,7 @@
             // populates the page elements with the app's data.
             ready: function (element, options) {
                 // TODO: Initialize the page here.
-                loadGame();
+                loadGame(options.name);
             },
 
             unload: function () {
@@ -27,6 +49,15 @@
             }
         });
     } else {
-        document.addEventListener("DOMContentLoaded", loadGame);
+        document.addEventListener("DOMContentLoaded", function DCLd() {
+            switch (location.hash) {
+                case '#b':
+                    loadGame('Scrollia');
+                case '#a':
+                default:
+                    loadGame('Angry Cannons');
+                    break;
+            }
+        });
     }
 })();
