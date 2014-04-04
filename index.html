@@ -111,8 +111,8 @@
                 last = now;
                 for (var i = 0; i < balls.length; i++) {
                     var ball = balls[i];
-                    ball.vy += 1 / 1000 * dist;
-                    ball.vx = ball.vx - (1 / 1000 * ball.vx * dist);
+                    ball.vy += 1 / 1000 * dist; //gravity wins
+                    ball.vx = ball.vx - (1 / 1000 * ball.vx * dist); //friction wins
 
                     if (ball.y >= canvasHeight - ball.radius) {
                         ball.vy = -ball.vy * (1 - elasticity);
@@ -127,13 +127,18 @@
                 }
             }
 
-            var lastPointer = {
-                x: 0,
-                y: 0
-            };
+            var lastPointers = [];
             window.addEventListener("pointermove", function (ev) {
                 var x = ev.clientX
                     , y = ev.clientY;
+                if (!lastPointers[ev.pointerId]) {
+                    lastPointers[ev.pointerId] = {
+                        x: 0,
+                        y: 0
+                    };
+                }
+
+                var lastPointer = lastPointers[ev.pointerId];
                 if (Math.sqrt(Math.pow(lastPointer.x - x, 2) + Math.pow(lastPointer.y - y, 2)) > 10) {
                     lastPointer.x = x;
                     lastPointer.y = y;
