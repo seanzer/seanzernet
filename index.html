@@ -116,9 +116,11 @@
 
                     if (ball.y >= canvasHeight - ball.radius) {
                         ball.vy = -ball.vy * (1 - elasticity);
+                        ball.vy = (ball.vy * 10 | 0) / 10;
                     }
                     if (ball.x >= canvasWidth - ball.radius || ball.x <= ball.radius) {
                         ball.vx = -ball.vx * (1 - elasticity);
+                        ball.vx = (ball.vx * 10 | 0) / 10;
                     }
                     ball.y = Math.min(ball.y + dist * ball.vy, canvasHeight - ball.radius);
                     ball.x = ball.x + dist * ball.vx;
