@@ -77,7 +77,6 @@
                 vy: .5
             });
 
-            var last = performance.now();
             function render() {
                 update();
 
@@ -94,32 +93,43 @@
 
                 requestAnimationFrame(render);
             }
+            var last = performance.now();
             render();
 
+            var maxBalls = Number.MAX_VALUE;
+            var canvasHeight = 0;
+            var canvasWidth = 0;
             function update() {
-                var canvasHeight = canvas.height;
-                var canvasWidth = canvas.width;
-                var elasticity = .6;
+                canvasHeight = canvas.height;
+                canvasWidth = canvas.width;
+                var elasticityFloor = .6;
+                var elasticityWall = .2;
 
                 //update
                 var now = performance.now();
                 var dist = now - last;
-                if (now - last > 50) {
-                    balls = [];
+                if (dist > 50) {
+                    maxBalls = Math.max(balls.length - 2, 2);
                     dist = 50;
+                } else {
+                    maxBalls++;
                 }
                 last = now;
+                while (balls.length > 0 && balls.length > maxBalls) {
+                    balls.shift();
+                }
                 for (var i = 0; i < balls.length; i++) {
                     var ball = balls[i];
                     ball.vy += 1 / 1000 * dist; //gravity wins
                     ball.vx = ball.vx - (1 / 1000 * ball.vx * dist); //friction wins
 
                     if (ball.y >= canvasHeight - ball.radius) {
-                        ball.vy = -ball.vy * (1 - elasticity);
+                        ball.vy = -ball.vy * (1 - elasticityFloor);
                         ball.vy = (ball.vy * 10 | 0) / 10;
                     }
-                    if (ball.x >= canvasWidth - ball.radius || ball.x <= ball.radius) {
-                        ball.vx = -ball.vx * (1 - elasticity);
+                    if ((ball.x >= canvasWidth - ball.radius && ball.vx > 0)
+                        || (ball.x <= ball.radius && ball.vx < 0)) {
+                        ball.vx = -ball.vx * (1 - elasticityWall);
                         ball.vx = (ball.vx * 10 | 0) / 10;
                     }
                     ball.y = Math.min(ball.y + dist * ball.vy, canvasHeight - ball.radius);
@@ -145,11 +155,12 @@
 
                     var r = Math.random() * 256 | 0
                         , g = Math.random() * 256 | 0
-                        , b = Math.random() * 256 | 0;
+                        , b = Math.random() * 256 | 0
+                        , radius = 20;
                     balls.push({
-                        x: lastPointer.x,
-                        y: lastPointer.y,
-                        radius: 20,
+                        x: Math.min(Math.max(lastPointer.x, radius), canvasWidth - radius),
+                        y: Math.min(Math.max(lastPointer.y, radius), canvasHeight - radius),
+                        radius: radius,
                         color: "rgb(" + r + "," + g + ", " + b + ")",
                         vx: Math.random() - .5,
                         vy: -2 * Math.random() + 1
