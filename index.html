@@ -138,7 +138,7 @@
             }
 
             var lastPointers = [];
-            window.addEventListener("pointermove", function (ev) {
+            function handleMove(ev) {
                 var x = ev.clientX
                     , y = ev.clientY;
                 if (!lastPointers[ev.pointerId]) {
@@ -166,7 +166,12 @@
                         vy: -2 * Math.random() + 1
                     });
                 }
-            });
+            }
+            if (window.onpointermove) {
+                window.addEventListener("pointermove", handleMove);
+            } else {
+                window.addEventListener("mousemove", handleMove);
+            }
         })();
     </script>
 </body>
