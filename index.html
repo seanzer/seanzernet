@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -153,15 +153,28 @@
                     lastPointer.x = x;
                     lastPointer.y = y;
 
-                    var r = Math.random() * 256 | 0
-                        , g = Math.random() * 256 | 0
-                        , b = Math.random() * 256 | 0
+                    function normalizeRGB(RGB) {
+                        function maxNum(x, y, z) {
+                            return x > y ? (x > z ? x : z) : (z > y ? z : y);
+                        }
+                        var max = maxNum(RGB.r, RGB.g, RGB.b);
+                        return {
+                            r: (Math.pow(2, RGB.r / max * 8) | 0) - 1,
+                            g: (Math.pow(2, RGB.g / max * 8) | 0) - 1,
+                            b: (Math.pow(2, RGB.b / max * 8) | 0) - 1
+                        };
+                    }
+
+                    var r = Math.random()
+                        , g = Math.random()
+                        , b = Math.random()
+                        , RGB = normalizeRGB({ r: r, g: g, b: b })
                         , radius = 20;
                     balls.push({
                         x: Math.min(Math.max(lastPointer.x, radius), canvasWidth - radius),
                         y: Math.min(Math.max(lastPointer.y, radius), canvasHeight - radius),
                         radius: radius,
-                        color: "rgb(" + r + "," + g + ", " + b + ")",
+                        color: "rgb(" + RGB.r + "," + RGB.g + ", " + RGB.b + ")",
                         vx: Math.random() - .5,
                         vy: -2 * Math.random() + 1
                     });
@@ -175,5 +188,4 @@
         })();
     </script>
 </body>
-
 </html>
