@@ -60,6 +60,9 @@
             }
 
             var balls = [];
+            balls.redCount = 0;
+            balls.greenCount = 0;
+            balls.blueCount = 0;
             balls.push({
                 x: 20 + 20 * Math.random(),
                 y: 23,
@@ -84,12 +87,32 @@
                 context.clearRect(0, 0, canvas.width, canvas.height);
 
                 //draw
-                for (var i = 0; i < balls.length; i++) {
-                    var ball = balls[i];
-                    drawBall(ball.x, ball.y, ball.radius, ball.color);
-                }
-                drawMyName();
-                drawBallCount();
+                (function draw() {
+                    for (var i = 0; i < balls.length; i++) {
+                        var ball = balls[i];
+                        drawBall(ball.x, ball.y, ball.radius, ball.color);
+                    }
+                    drawMyName();
+                    drawBallCount();
+                    (function drawColorCounts() {
+                        var font = "20px Georgia"
+                            , text = "Red: " + balls.redCount
+                            , x = 10
+                            , y = 140;
+                        context.strokeStyle = "rgb(255,0,0)";
+                        drawText(font, text, x, y);
+                        
+                        text = "Green: " + balls.greenCount
+                        y = 160;
+                        context.strokeStyle = "rgb(0,255,0)";
+                        drawText(font, text, x, y);
+
+                        text = "Blue: " + balls.blueCount
+                        y = 180;
+                        context.strokeStyle = "rgb(0,0,255)";
+                        drawText(font, text, x, y);
+                    })();
+                })();
 
                 requestAnimationFrame(render);
             }
@@ -153,28 +176,29 @@
                     lastPointer.x = x;
                     lastPointer.y = y;
 
-                    function normalizeRGB(RGB) {
-                        function maxNum(x, y, z) {
-                            return x > y ? (x > z ? x : z) : (z > y ? z : y);
+                    var normalizeRGB = function normalizeRGB(RGB) {
+                        var max = Math.max.apply(this, RGB);
+                        if (max === RGB[0]) {
+                            balls.redCount++;
+                        } else if (max === RGB[1]) {
+                            balls.greenCount++;
+                        } else {
+                            balls.blueCount++;
                         }
-                        var max = maxNum(RGB.r, RGB.g, RGB.b);
-                        return {
-                            r: (Math.pow(2, RGB.r / max * 8) | 0) - 1,
-                            g: (Math.pow(2, RGB.g / max * 8) | 0) - 1,
-                            b: (Math.pow(2, RGB.b / max * 8) | 0) - 1
-                        };
+                        return RGB.map(function (value, index, array) {
+                            return (Math.pow(2, value / max * 8) | 0) - 1;
+                        });
                     }
 
-                    var r = Math.random()
-                        , g = Math.random()
-                        , b = Math.random()
-                        , RGB = normalizeRGB({ r: r, g: g, b: b })
+                    var RGB = normalizeRGB([Math.random(), Math.random(), Math.random()])
+                        , colorString = "rgb(" + RGB.join(",") + ")"
                         , radius = 20;
+                    
                     balls.push({
                         x: Math.min(Math.max(lastPointer.x, radius), canvasWidth - radius),
                         y: Math.min(Math.max(lastPointer.y, radius), canvasHeight - radius),
                         radius: radius,
-                        color: "rgb(" + RGB.r + "," + RGB.g + ", " + RGB.b + ")",
+                        color: colorString,
                         vx: Math.random() - .5,
                         vy: -2 * Math.random() + 1
                     });
