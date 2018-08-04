@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
     <title>Seanzer.net - IT'S A PaRTY!!</title>
@@ -9,6 +10,7 @@
         }
     </style>
 </head>
+
 <body>
     <script>
         (function () {
@@ -101,7 +103,7 @@
                             , y = 140;
                         context.strokeStyle = "rgb(255,0,0)";
                         drawText(font, text, x, y);
-                        
+
                         text = "Green: " + balls.greenCount
                         y = 160;
                         context.strokeStyle = "rgb(0,255,0)";
@@ -193,7 +195,7 @@
                     var RGB = normalizeRGB([Math.random(), Math.random(), Math.random()])
                         , colorString = "rgb(" + RGB.join(",") + ")"
                         , radius = 20;
-                    
+
                     balls.push({
                         x: Math.min(Math.max(lastPointer.x, radius), canvasWidth - radius),
                         y: Math.min(Math.max(lastPointer.y, radius), canvasHeight - radius),
@@ -212,4 +214,5 @@
         })();
     </script>
 </body>
+
 </html>

@@ -1,0 +1,12 @@
+runtime: go
+api_version: go1.9
+
+handlers:
+
+- url: /
+  static_files: index.html
+  upload: index.html
+
+# Catch all with Go app
+- url: /.*
+  script: _go_app
