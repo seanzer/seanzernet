@@ -33,8 +33,8 @@
             y: 23,
             radius: 20,
             color: "red",
-            vx: .08,
-            vy: .1
+            vx: 0.08,
+            vy: 0.1
         });
         balls.push({
             x: 100 * Math.random() + 100,
@@ -42,7 +42,7 @@
             radius: 20,
             color: "green",
             vx: 0,
-            vy: .5
+            vy: 0.5
         });
         return balls;
     }
@@ -97,19 +97,19 @@
         }
 
         drawMyName() {
-            const font = "20px Georgia"
-                , text = "Welcome to Seanzer.Net... by SeanLee"
-                , x = 10
-                , y = 100;
+            const font = "20px Georgia",
+                  text = "Welcome to Seanzer.Net... by SeanLee",
+                  x = 10,
+                  y = 100;
             this.drawText(font, text, x, y);
         }
 
         drawBallCount() {
             const balls = this.balls.all;
-            const font = "12px Georgia"
-                , text = "Total balls: " + balls.length
-                , x = 16
-                , y = 120;
+            const font = "12px Georgia",
+                  text = "Total balls: " + balls.length,
+                  x = 16,
+                  y = 120;
             this.drawText(font, text, x, y);
         }
 
@@ -129,10 +129,9 @@
         }
 
         drawColorCounts() {
-            const font = "20px Georgia"
-                , x = 10
-                , y = 140
-                , balls = this.balls.all;
+            const font = "20px Georgia",
+                  x = 10,
+                  y = 140;
             this.context.strokeStyle = "rgb(255,0,0)";
             this.drawText(font, "Red: " + this.balls.redCount, x, y);
 
@@ -157,8 +156,8 @@
 
         update() {
             const balls = this.balls.all;
-            const elasticityFloor = .6;
-            const elasticityWall = .2;
+            const elasticityFloor = 0.6;
+            const elasticityWall = 0.2;
 
             //update
             const now = performance.now();
@@ -182,8 +181,8 @@
                     ball.vy = -ball.vy * (1 - elasticityFloor);
                     ball.vy = (ball.vy * 10 | 0) / 10;
                 }
-                if ((ball.x >= this.canvasWidth - ball.radius && ball.vx > 0)
-                    || (ball.x <= ball.radius && ball.vx < 0)) {
+                if ((ball.x >= this.canvasWidth - ball.radius && ball.vx > 0) ||
+                    (ball.x <= ball.radius && ball.vx < 0)) {
                     ball.vx = -ball.vx * (1 - elasticityWall);
                     ball.vx = (ball.vx * 10 | 0) / 10;
                 }
@@ -222,8 +221,8 @@
 
         handleMove(ev) {
             const balls = this.balls.all;
-            const x = ev.clientX
-                , y = ev.clientY;
+            const x = ev.clientX,
+                  y = ev.clientY;
             if (!this.lastPointers[ev.pointerId]) {
                 this.lastPointers[ev.pointerId] = {
                     x: 0,
@@ -236,16 +235,16 @@
                 lastPointer.x = x;
                 lastPointer.y = y;
 
-                const RGB = this.normalizeRGB([Math.random(), Math.random(), Math.random()])
-                    , colorString = "rgb(" + RGB.join(",") + ")"
-                    , radius = 20;
+                const RGB = this.normalizeRGB([Math.random(), Math.random(), Math.random()]),
+                      colorString = "rgb(" + RGB.join(",") + ")",
+                      radius = 20;
 
                 balls.push({
                     x: Math.min(Math.max(lastPointer.x, radius), this.canvasWidth - radius),
                     y: Math.min(Math.max(lastPointer.y, radius), this.canvasHeight - radius),
                     radius: radius,
                     color: colorString,
-                    vx: Math.random() - .5,
+                    vx: Math.random() - 0.5,
                     vy: -2 * Math.random() + 1
                 });
             }
