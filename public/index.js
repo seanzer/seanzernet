@@ -144,8 +144,7 @@
 
         draw() {
             const balls = this.balls.all;
-            for (var i = 0; i < balls.length; i++) {
-                var ball = balls[i];
+            for (const ball of balls) {
                 this.drawBall(ball.x, ball.y, ball.radius, ball.color);
             }
 
